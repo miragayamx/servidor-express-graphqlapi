@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
 
-app.use('/producto', productoRouter);
+app.use('/productos', productoRouter);
 app.use('/carrito', carritoRouter);
 
 const server = app.listen(PORT, () => {
