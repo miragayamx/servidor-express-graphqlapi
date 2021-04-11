@@ -1,74 +1,62 @@
-const { readFile } = require("../utils/fileManager");
+const { requiredData, validFields } = require('./validData');
+const { readFile } = require('../utils/fileManager');
 class Productos {
-  constructor() {
-    this.productos = [];
-    this.dataKeys = [
-      "timestamp",
-      "nombre",
-      "descripcion",
-      "codigo",
-      "foto",
-      "precio",
-      "stock",
-    ];
-  }
-  setList(productList) {
-    if (!Array.isArray(productList))
-      throw new Error("La lista de productos debe ser un array");
-    this.productos = productList;
-  }
-  getList() {
-    return this.productos;
-  }
-  getProduct(id) {
-    return this.productos.filter((el) => el.id === Number(id))[0];
-  }
-  addProduct(item) {
-    const validItem = this.dataKeys.every((el) =>
-      Object.keys(item).includes(el)
-    );
-    if (!validItem)
-      throw new Error(
-        "Los datos del producto proporcionado no son suficientes"
-      );
-    let newId = 1;
-    if (!!this.productos.length)
-      newId = this.productos[this.productos.length - 1].id + 1;
-    const itemWithId = {
-      ...item,
-      price: Number(item.price),
-      stock: Number(item.stock),
-      id: newId,
-    };
-    this.productos.push(itemWithId);
-    return itemWithId;
-  }
-  updateProduct(id, item) {
-    const validKeys = Object.keys(item).filter((el) =>
-      this.dataKeys.includes(el)
-    );
-    const productToUpdate = {};
-    validKeys.forEach((key) => (productToUpdate[key] = item[key]));
-    const index = this.productos.findIndex((el) => el.id === Number(id));
-    if (index < 0) return null;
-    this.productos[index] = {
-      ...this.productos[index],
-      ...productToUpdate,
-    };
-    return this.productos[index];
-  }
-  deleteProduct(id) {
-    const index = this.productos.findIndex((el) => el.id === Number(id));
-    const deleteProduct = this.productos[index];
-    this.productos.splice(index, 1);
-    return deleteProduct;
-  }
+	constructor() {
+		this.productos = [];
+		this.productoKeys = [ 'nombre', 'descripcion', 'codigo', 'foto', 'precio', 'stock' ];
+	}
+	setList(productList) {
+		this.productos = productList;
+	}
+	getList() {
+		if (!this.productos.length) throw new Error('No se encontraron productos');
+		return this.productos;
+	}
+	getProduct(id) {
+		const producto = this.productos.filter((el) => el.id === Number(id))[0];
+		if (!producto) throw new Error('No se encontró el producto solicitado');
+		return producto;
+	}
+	addProduct(item) {
+		const validItem = requiredData(item, this.productoKeys);
+		if (!validItem) throw new Error('Los datos del producto proporcionado no son suficientes');
+		let newId = 1;
+		if (!!this.productos.length) newId = this.productos[this.productos.length - 1].id + 1;
+		const itemWithId = {
+			...item,
+			timestamp: Date.now(),
+			precio: Number(item.precio),
+			stock: Number(item.stock),
+			id: newId
+		};
+		this.productos.push(itemWithId);
+		return itemWithId;
+	}
+	updateProduct(id, item) {
+		const productToUpdate = validFields(item, this.productoKeys);
+		const index = this.productos.findIndex((el) => el.id === Number(id));
+		if (index < 0) throw new Error('No se encontró el producto solicitado');
+		this.productos[index] = {
+			...this.productos[index],
+			...productToUpdate
+		};
+		return this.productos[index];
+	}
+	deleteProduct(id) {
+		const index = this.productos.findIndex((el) => el.id === Number(id));
+		if (index < 0) throw new Error('No se encontró el producto solicitado');
+		const deleteProduct = this.productos[index];
+		this.productos.splice(index, 1);
+		return deleteProduct;
+	}
 }
 
 const productos = new Productos();
-// const prevData = readFile("../data/productos.txt")
-//   .then((data) => data.json())
-//   .then(productos => productos)
-//   .catch((err) => console.log(err));
+const prevData = readFile('./data/productos.txt')
+	.then((data) => productos.setList(JSON.parse(data)))
+	.catch((err) => {
+		if ((err.code = 'ENOENT')) return;
+		console.log(err);
+	});
 
 module.exports = productos;

@@ -1,27 +1,47 @@
 const express = require('express');
+const carrito = require('../modelo/carrito');
+const { saveFile } = require('../utils/fileManager');
 
 const router = express.Router();
 
 //GET
 router.get('/listar', (req, res) => {
-    const id = req.query.id;
-    res.status(200).json({saludo: 'hola'});
+	try {
+		let response;
+		const id = req.query.id;
+		if (!!id) {
+			response = carrito.getProduct(id);
+		} else {
+			response = carrito.getList();
+		}
+		res.status(200).json(response);
+	} catch (err) {
+		res.status(400).json({ error: err.message });
+	}
 });
 //POST
-router.post('/agregar/:id_producto', (req, res) => {
-    const productoId = req.params.id_producto;
-    res.status(200).json({saludo: 'hola'});
-});
-//PUT
-router.put('/actualizar/:id', (req, res) => {
-    const id = req.params.id;
-    const producto = req.body;
-    res.status(200).json({saludo: 'hola'});
+router.post('/agregar/:id_producto', async (req, res) => {
+	try {
+		const productoId = req.params.id_producto;
+		carrito.addProduct(productoId);
+		const saveData = JSON.stringify(carrito.getList());
+		await saveFile('./data/carrito.txt', saveData);
+		res.status(201).json({ notificacion: 'Producto agregado con exito!' });
+	} catch (err) {
+		res.status(400).json({ error: err.message });
+	}
 });
 //DELETE
-router.delete('/borrar/:id', (req, res) => {
-    const id = req.params.id;
-    res.status(200).json({saludo: 'hola'});
+router.delete('/borrar/:id', async (req, res) => {
+	try {
+		const id = req.params.id;
+		carrito.deleteProduct(id);
+		const saveData = JSON.stringify(carrito.getList());
+		await saveFile('./data/carrito.txt', saveData);
+		res.status(200).json({ notificacion: 'Producto eliminado con exito!' });
+	} catch (err) {
+		res.status(400).json({ error: err.message });
+	}
 });
 
 module.exports = router;

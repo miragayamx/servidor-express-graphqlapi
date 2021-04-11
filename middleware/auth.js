@@ -3,7 +3,7 @@ const auth = (req, res, next) => {
     if(administrador) return next();
     const errorObj = {
         error: -1,
-        descripcion: `ruta ${req.originalUrl} método ${req.method} no autorizada`
+        descripcion: `ruta ${req.url} método ${req.method} no autorizada`
     }
     return res.status(401).json(errorObj);
 }
