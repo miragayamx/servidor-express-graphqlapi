@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 const productos = require('../modelo/productos');
-const { readFile, saveFile } = require('../utils/fileManager');
+const { saveFile } = require('../utils/fileManager');
 
 const router = express.Router();
 
