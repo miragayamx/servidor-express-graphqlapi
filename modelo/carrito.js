@@ -8,7 +8,7 @@ class Carrito {
 		this.carrito = carrito;
 	}
 	getList() {
-		if (!this.carrito.length) throw new Error('No se encontraron productos en el carrito');
+		if (!this.carrito.length) return this.carrito;
 		return this.carrito.filter((el) => el.producto);
 	}
 	getProduct(id) {

@@ -9,7 +9,6 @@ class Productos {
 		this.productos = productList;
 	}
 	getList() {
-		if (!this.productos.length) throw new Error('No se encontraron productos');
 		return this.productos;
 	}
 	getProduct(id) {
