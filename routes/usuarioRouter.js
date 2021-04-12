@@ -11,7 +11,7 @@ router.get("/usuario", (req, res) => {
 router.post("/usuario", (req, res) => {
   const user = req.body.usuario;
   usuario.setUsuario(user);
-  res.status(200).json({ notification: "Operación realizada con exito!" });
+  res.status(200).json({ usuario: usuario.getUsuario() });
 });
 
 module.exports = router;
