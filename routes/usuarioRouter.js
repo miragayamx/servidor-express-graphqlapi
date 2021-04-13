@@ -9,8 +9,8 @@ router.get("/usuario", (req, res) => {
 });
 
 router.post("/usuario", (req, res) => {
-  const user = req.body.usuario;
-  usuario.setUsuario(user);
+  const data = req.body.usuario;
+  usuario.setUsuario(data.usuario);
   res.status(200).json({ usuario: usuario.getUsuario() });
 });
 
