@@ -1,32 +1,13 @@
 const express = require("express");
-const carrito = require("../modelo/carrito");
+const carritoController = require("../controller/carritoController");
 const { saveFile } = require("../utils/fileManager");
 
 const router = express.Router();
 
 //GET
-router.get("/listar", (req, res) => {
-  let response;
-  const id = req.query.id;
-  if (!!id) {
-    response = carrito.getProduct(id);
-  } else {
-    response = carrito.getList();
-  }
-  res.status(200).json(response);
-});
+router.get("/listar", carritoController.getList);
 //POST
-router.post("/agregar/:id_producto", async (req, res) => {
-  try {
-    const productoId = req.params.id_producto;
-    carrito.addProduct(productoId);
-    const saveData = JSON.stringify(carrito.getList());
-    await saveFile("./data/carrito.txt", saveData);
-    res.status(201).json({ notificacion: "Producto agregado con exito!" });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+router.post("/agregar/:id_producto", carritoController.addItem);
 //DELETE
 router.delete("/borrar/:id", async (req, res) => {
   try {
