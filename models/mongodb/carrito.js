@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const productoSchema = require('./productoSchema');
 
 const carritoSchema = new mongoose.Schema({
     timestamp: {
@@ -7,7 +6,8 @@ const carritoSchema = new mongoose.Schema({
         required: true
     },
     producto: {
-        type: productoSchema,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'producto',
         required: true
     },    
 });

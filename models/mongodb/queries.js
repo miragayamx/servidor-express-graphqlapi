@@ -1,4 +1,4 @@
-const Producto = require("./mongodb/productoModel");
+const Producto = require("./mongodb/producto");
 const Carrito = require("./mongodb/carrito");
 
 const producto = {
@@ -22,10 +22,10 @@ const producto = {
 
 const carrito = {
   async find(filter = {}) {
-    return await Carrito.find(filter);
+    return await Carrito.find(filter).populate('producto');
   },
   async findById(id) {
-    return await Carrito.findById(id);
+    return await Carrito.findById(id).populate('producto');
   },
   async insert(item) {
     const carrito = new Carrito(item);

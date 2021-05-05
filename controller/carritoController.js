@@ -24,10 +24,7 @@ const addItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    const id = req.params.id;
-    carrito.deleteProduct(id);
-    const saveData = JSON.stringify(carrito.getList());
-    await saveFile("./data/carrito.txt", saveData);
+    carrito.delete(req.params.id);
     res.status(200).json({ notificacion: "Producto eliminado con exito!" });
   } catch (err) {
     res.status(400).json({ error: err.message });
