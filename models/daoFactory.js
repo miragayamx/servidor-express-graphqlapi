@@ -1,3 +1,5 @@
+const persistOpt = require('../persistOpt');
+
 class DaoFactory {
 	constructor(source) {
 		return async () => {
@@ -5,6 +7,9 @@ class DaoFactory {
 				switch (source) {
 					case 1:
 						this.db = await import('./daoMongodb');
+						return this;
+					case 2:
+						this.db = await import('./daoSqlite');
 						return this;
 					default:
 						this.db = await import('./daoMongodb');
@@ -14,7 +19,7 @@ class DaoFactory {
 		};
 	}
 	createSource(source) {
-		return new this.db[source];
+		return new this.db[source]();
 	}
 }
 
