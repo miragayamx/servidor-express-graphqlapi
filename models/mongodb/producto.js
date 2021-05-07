@@ -25,7 +25,7 @@ const productoSchema = new mongoose.Schema({
         required: true,
 		trim: true
 	},
-	price: {
+	precio: {
 		type: Number,
 		required: true
 	},

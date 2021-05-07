@@ -1,6 +1,4 @@
-const dao = require('../models/daoFactory');
-
-const productos = dao.createSource('producto');
+const { productos } = require('../models/daoSequelize');
 
 const getList = (req, res) => {
 	let response;
@@ -16,6 +14,7 @@ const getList = (req, res) => {
 const addItem = async (req, res) => {
 	try {
 		const producto = req.body;
+		producto.timestamp = Date.now();
 		productos.insert(producto);
 		res.status(201).json({ notification: 'Operación realizada con exito!' });
 	} catch (err) {

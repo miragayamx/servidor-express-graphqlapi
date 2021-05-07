@@ -1,4 +1,4 @@
-const usuario = require("../modelo/usuario");
+const usuario = require("../models/usuario");
 const auth = (req, res, next) => {
   const administrador = usuario.getUsuario() === 'administrador';
   if (administrador) return next();

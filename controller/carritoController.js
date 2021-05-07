@@ -1,6 +1,4 @@
-const dao = require("../models/daoFactory");
-
-const carrito = dao.createSource("carrito");
+const { carrito } = require('../models/daoMongoDB');
 
 const getList = async (req, res) => {
   let response;
