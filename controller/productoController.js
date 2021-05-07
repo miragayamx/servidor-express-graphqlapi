@@ -1,12 +1,12 @@
-const { productos } = require('../models/daoSequelize');
+const { productos } = require('../models/daoMongoDB');
 
-const getList = (req, res) => {
+const getList = async (req, res) => {
 	let response;
 	const id = req.query.id;
 	if (!!id) {
-		response = productos.findById(id);
+		response = await productos.findById(id);
 	} else {
-		response = productos.find();
+		response = await productos.find();
 	}
 	res.status(200).json(response);
 };

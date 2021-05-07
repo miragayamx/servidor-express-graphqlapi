@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../../db-connect-data/sequelize');
 
 const Producto = sequelize.define('Producto', {
-	id: {
+	_id: {
 		type: DataTypes.UUID,
 		defaultValue: Sequelize.UUIDV4,
 		primaryKey: true

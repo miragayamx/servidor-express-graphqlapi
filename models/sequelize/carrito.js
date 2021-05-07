@@ -3,7 +3,7 @@ const sequelize = require('../../db-connect-data/sequelize');
 const Producto = require('./producto');
 
 const Carrito = sequelize.define('Carrito', {
-	id: {
+	_id: {
 		type: DataTypes.UUID,
 		defaultValue: Sequelize.UUIDV4,
 		primaryKey: true
@@ -17,7 +17,7 @@ const Carrito = sequelize.define('Carrito', {
 		allowNull: false,
 		references: {
 			model: Producto,
-			key: 'id'
+			key: '_id'
 		}
 	}
 });
