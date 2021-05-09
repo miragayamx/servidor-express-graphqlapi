@@ -1,3 +1,3 @@
-const persistOpt = 1;
+const persistOpt = 3;
 
 module.exports = persistOpt;

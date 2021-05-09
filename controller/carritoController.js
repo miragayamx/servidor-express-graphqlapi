@@ -20,7 +20,6 @@ const addItem = async (req, res) => {
 			timestamp: Date.now(),
 			producto: producto._id
 		};
-    console.log(item)
     await carrito.insert(item);
     res.status(201).json({ notificacion: "Producto agregado con exito!" });
   } catch (err) {
