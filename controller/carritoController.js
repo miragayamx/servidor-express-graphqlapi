@@ -1,4 +1,6 @@
-const { carrito } = require('../models/daoMongoDB');
+const dao = require('../models/dao');
+const carrito = dao.createDataAccess('carrito');
+const productos = dao.createDataAccess('productos');
 
 const getList = async (req, res) => {
   let response;
@@ -13,6 +15,12 @@ const getList = async (req, res) => {
 
 const addItem = async (req, res) => {
   try {
+    const producto = await productos.findById(req.params.id_producto);
+    const item = {
+			timestamp: Date.now(),
+			producto: producto._id
+		};
+    console.log(item)
     await carrito.insert(item);
     res.status(201).json({ notificacion: "Producto agregado con exito!" });
   } catch (err) {
@@ -22,7 +30,7 @@ const addItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    carrito.delete(req.params.id);
+    await carrito.delete(req.params.id);
     res.status(200).json({ notificacion: "Producto eliminado con exito!" });
   } catch (err) {
     res.status(400).json({ error: err.message });

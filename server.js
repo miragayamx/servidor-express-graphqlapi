@@ -4,8 +4,6 @@ const productoRouter = require("./routes/productoRouter");
 const carritoRouter = require("./routes/carritoRouter");
 const usuarioRouter = require("./routes/usuarioRouter");
 const { createFolder } = require("./utils/fileManager");
-require('./db-connect-data/mongoDB');
-const sequelize = require('./db-connect-data/sequelize');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -30,7 +28,6 @@ const server = app.listen(PORT, async () => {
     `El servidor esta corriendo en el puerto: ${server.address().port}`
   );
   await createFolder("./data");
-  await sequelize.sync();
 });
 
 server.on("error", (err) => console.log(`Error de servidor: ${err}`));

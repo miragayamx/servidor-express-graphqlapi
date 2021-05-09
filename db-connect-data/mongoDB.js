@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
-const mongoUrl = 'mongodb://127.0.0.1:27017/ecommerce';
+const mongodb = (mongoUrl) => {
+	return mongoose.connect(mongoUrl, {
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+		useUnifiedTopology: true
+	});
+};
 
-mongoose.connect(mongoUrl, {
-	useNewUrlParser: true,
-	useCreateIndex: true,
-	useFindAndModify: false,
-	useUnifiedTopology: true
-});
+module.exports = mongodb;

@@ -13,7 +13,7 @@ const productos = {
     await producto.save();
   },
   async update(id, data) {
-    return await Producto.findByIdAndUpdate(id, item);
+    return await Producto.findByIdAndUpdate(id, data);
   },
   async delete(id) {
     return await Producto.findByIdAndDelete(id);

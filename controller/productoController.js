@@ -1,4 +1,6 @@
-const { productos } = require('../models/daoMongoDB');
+const dao = require('../models/dao');
+const productos = dao.createDataAccess('productos');
+
 
 const getList = async (req, res) => {
 	let response;
@@ -15,7 +17,7 @@ const addItem = async (req, res) => {
 	try {
 		const producto = req.body;
 		producto.timestamp = Date.now();
-		productos.insert(producto);
+		await productos.insert(producto);
 		res.status(201).json({ notification: 'Operación realizada con exito!' });
 	} catch (err) {
 		res.status(400).json({ error: err.message });
@@ -26,7 +28,7 @@ const updateItem = async (req, res) => {
 	try {
 		const id = req.params.id;
 		const producto = req.body;
-		productos.update(id, producto);
+		await productos.update(id, producto);
 		res.status(200).json({ notification: 'Operación realizada con exito!' });
 	} catch (err) {
 		res.status(400).json({ error: err.message });
@@ -35,7 +37,7 @@ const updateItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
 	try {
-		productos.delete(req.params.id);
+		await productos.delete(req.params.id);
 		res.status(200).json({ notification: 'Operación realizada con exito!' });
 	} catch (err) {
 		res.status(400).json({ error: err.message });

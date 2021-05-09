@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 const Producto = require('./sequelize/producto');
 const Carrito = require('./sequelize/carrito');
 
@@ -9,13 +9,16 @@ const productos = {
 		});
 	},
 	async findById(itemId) {
-		return await Producto.findAll({
+		console.log(itemId);
+		const item = await Producto.findAll({
 			where: {
-				id: {
+				_id: {
 					[Op.eq]: itemId
 				}
 			}
 		});
+		console.log(item);
+		return item[0].dataValues;
 	},
 	async insert(item) {
 		return await Producto.create(item);
@@ -23,7 +26,7 @@ const productos = {
 	async update(itemId, data) {
 		return await Producto.update(data, {
 			where: {
-				id: {
+				_id: {
 					[Op.eq]: itemId
 				}
 			}
@@ -32,7 +35,7 @@ const productos = {
 	async delete(itemId) {
 		return await Producto.destroy({
 			where: {
-				id: {
+				_id: {
 					[Op.eq]: itemId
 				}
 			}
@@ -42,18 +45,33 @@ const productos = {
 
 const carrito = {
 	async find(filter = {}) {
-		return await Carrito.findAll({
+		const carrito = await Carrito.findAll({
 			where: filter
 		});
+		const carritoPopulated = await Promise.all(
+			carrito.map(async (el) => {
+				const producto = await Producto.findAll({
+					where: {
+						_id: {
+							[Op.eq]: el.dataValues.producto
+						}
+					}
+				});
+				el.dataValues.producto = producto[0].dataValues;
+				return el.dataValues;
+			})
+		);
+		return carritoPopulated;
 	},
-	async findById(id) {
-		return await Carrito.findAll({
+	async findById(itemId) {
+		const item = await Carrito.findAll({
 			where: {
-				id: {
+				_id: {
 					[Op.eq]: itemId
 				}
 			}
 		});
+		return item[0].dataValues;
 	},
 	async insert(item) {
 		return await Carrito.create(item);
@@ -61,16 +79,16 @@ const carrito = {
 	async update(itemId, data) {
 		return await Carrito.update(data, {
 			where: {
-				id: {
+				_id: {
 					[Op.eq]: itemId
 				}
 			}
 		});
 	},
-	async delete(id) {
+	async delete(itemId) {
 		return await Carrito.destroy({
 			where: {
-				id: {
+				_id: {
 					[Op.eq]: itemId
 				}
 			}
