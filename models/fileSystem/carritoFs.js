@@ -9,7 +9,8 @@ class Carrito {
   // }
   async find() {
     try {
-      const carrito = await readFile("./data/fs/carrito.txt");
+      const data = await readFile("./data/fs/carrito.txt");
+      const carrito = !!data ? JSON.parse(data) : [];
       if (Array.isArray(carrito)) this.carrito = carrito;
       if (!this.carrito.length) return this.carrito;
       return this.carrito.filter((el) => el.producto);
@@ -19,7 +20,8 @@ class Carrito {
   }
   async findById(id) {
     try {
-      const carrito = await readFile("./data/fs/carrito.txt");
+      const data = await readFile("./data/fs/carrito.txt");
+      const carrito = !!data ? JSON.parse(data) : [];
       if (Array.isArray(carrito)) this.carrito = carrito;
       if (!carrito.length)
         throw new Error("No se encontraron productos en el carrito");
@@ -32,20 +34,22 @@ class Carrito {
   }
   async insert(item) {
     try {
-      const carrito = await readFile("./data/fs/carrito.txt");
+      const data = await readFile("./data/fs/carrito.txt");
+      const carrito = !!data ? JSON.parse(data) : [];
       if (Array.isArray(carrito)) this.carrito = carrito;
-      const producto = productos.findById(item.producto);
+      const producto = await productos.findById(item.producto);
       if (!producto) throw new Error("No se encontró el producto solicitado");
       let newId = 1;
       if (!!this.carrito.length)
-        newId = this.carrito[this.carrito.length - 1].id + 1;
+        newId = this.carrito[this.carrito.length - 1]._id + 1;
       const itemWithId = {
         _id: newId,
         timestamp: item.timestamp,
         producto: producto,
       };
       this.carrito.push(itemWithId);
-      await saveFile("./data/fs/carrito.txt", this.carrito);
+      const saveData = JSON.stringify(this.carrito);
+      await saveFile("./data/fs/carrito.txt", saveData);
       return itemWithId;
     } catch (err) {
       throw err;
@@ -53,13 +57,15 @@ class Carrito {
   }
   async delete(id) {
     try {
-      const carrito = await readFile("./data/fs/carrito.txt");
+      const data = await readFile("./data/fs/carrito.txt");
+      const carrito = !!data ? JSON.parse(data) : [];
       if (Array.isArray(carrito)) this.carrito = carrito;
       const index = this.carrito.findIndex((el) => el._id === Number(id));
       if (index < 0) throw new Error("No se encontró el producto solicitado");
       const deleteProduct = this.carrito[index];
       this.carrito.splice(index, 1);
-      await saveFile("./data/fs/carrito.txt", this.carrito);
+      const saveData = JSON.stringify(this.carrito);
+      await saveFile("./data/fs/carrito.txt", saveData);
       return deleteProduct;
     } catch (err) {
       throw err;
