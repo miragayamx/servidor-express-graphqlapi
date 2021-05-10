@@ -1,5 +1,5 @@
 const { requiredData, validFields } = require('./validData');
-const { readFile } = require('../utils/fileManager');
+const { readFile, saveFile } = require('../../utils/fileManager');
 class Productos {
 	constructor() {
 		this.productos = [];
@@ -8,32 +8,32 @@ class Productos {
 	setList(productList) {
 		this.productos = productList;
 	}
-	getList() {
+	find() {
 		return this.productos;
 	}
-	getProduct(id) {
-		const producto = this.productos.filter((el) => el.id === Number(id))[0];
+	findById(id) {
+		const producto = this.productos.filter((el) => el._id === Number(id))[0];
 		if (!producto) throw new Error('No se encontró el producto solicitado');
 		return producto;
 	}
-	addProduct(item) {
+	insert(item) {
 		const validItem = requiredData(item, this.productoKeys);
 		if (!validItem) throw new Error('Los datos del producto proporcionado no son suficientes');
 		let newId = 1;
-		if (!!this.productos.length) newId = this.productos[this.productos.length - 1].id + 1;
+		if (!!this.productos.length) newId = this.productos[this.productos.length - 1]._id + 1;
 		const itemWithId = {
 			...item,
 			timestamp: Date.now(),
 			precio: Number(item.precio),
 			stock: Number(item.stock),
-			id: newId
+			_id: newId
 		};
 		this.productos.push(itemWithId);
 		return itemWithId;
 	}
-	updateProduct(id, item) {
+	update(id, item) {
 		const productToUpdate = validFields(item, this.productoKeys);
-		const index = this.productos.findIndex((el) => el.id === Number(id));
+		const index = this.productos.findIndex((el) => el._id === Number(id));
 		if (index < 0) throw new Error('No se encontró el producto solicitado');
 		this.productos[index] = {
 			...this.productos[index],
@@ -41,8 +41,8 @@ class Productos {
 		};
 		return this.productos[index];
 	}
-	deleteProduct(id) {
-		const index = this.productos.findIndex((el) => el.id === Number(id));
+	delete(id) {
+		const index = this.productos.findIndex((el) => el._id === Number(id));
 		if (index < 0) throw new Error('No se encontró el producto solicitado');
 		const deleteProduct = this.productos[index];
 		this.productos.splice(index, 1);

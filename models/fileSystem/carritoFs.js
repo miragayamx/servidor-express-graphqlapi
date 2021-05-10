@@ -1,5 +1,5 @@
-const productos = require('./productos');
-const { readFile } = require('../utils/fileManager');
+const productos = require('./productosFs');
+const { readFile, saveFile } = require('../../utils/fileManager');
 class Carrito {
 	constructor() {
 		this.carrito = [];
@@ -7,31 +7,31 @@ class Carrito {
 	setList(carrito) {
 		this.carrito = carrito;
 	}
-	getList() {
+	find() {
 		if (!this.carrito.length) return this.carrito;
 		return this.carrito.filter((el) => el.producto);
 	}
-	getProduct(id) {
+	findById(id) {
 		if(!carrito.length) throw new Error('No se encontraron productos en el carrito');
-		const item = this.carrito.filter((el) => el.id === Number(id))[0];
+		const item = this.carrito.filter((el) => el._id === Number(id))[0];
 		if (!item) throw new Error('No se encontró el producto solicitado');
 		return item.producto;
 	}
-	addProduct(productId) {
-		const producto = productos.getProduct(productId);
+	insert(item) {
+		const producto = productos.findById(item.producto);
 		if (!producto) throw new Error('No se encontró el producto solicitado');
 		let newId = 1;
 		if (!!this.carrito.length) newId = this.carrito[this.carrito.length - 1].id + 1;
 		const itemWithId = {
-			id: newId,
-			timestamp: Date.now(),
+			_id: newId,
+			timestamp: item.timestamp,
 			producto: producto
 		};
 		this.carrito.push(itemWithId);
 		return itemWithId;
 	}
-	deleteProduct(id) {
-		const index = this.carrito.findIndex((el) => el.id === Number(id));
+	delete(id) {
+		const index = this.carrito.findIndex((el) => el._id === Number(id));
 		if (index < 0) throw new Error('No se encontró el producto solicitado');
 		const deleteProduct = this.carrito[index];
 		this.carrito.splice(index, 1);
