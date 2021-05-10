@@ -65,6 +65,8 @@ const daoSequelize = (connectData) => {
 		}
 	});
 
+	sequelize.sync()
+
 	const productos = {
 		async find(filter = {}) {
 			return await Producto.findAll({
