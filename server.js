@@ -2,8 +2,10 @@ const path = require("path");
 const express = require("express");
 const productoRouter = require("./routes/productoRouter");
 const carritoRouter = require("./routes/carritoRouter");
-const usuarioRouter = require("./routes/usuarioRouter");
+const loginRouter = require("./routes/loginRouter");
 const { createFolder } = require("./utils/fileManager");
+require('dotenv').config({ path: './.env' });
+require('./db-connect-data/mongoDB');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -12,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
 
-app.use("/", usuarioRouter);
+app.use("/", loginRouter);
 app.use("/productos", productoRouter);
 app.use("/carrito", carritoRouter);
 

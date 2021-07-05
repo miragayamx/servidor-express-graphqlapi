@@ -1,5 +1,5 @@
-const Producto = require("./mongodb/producto");
-const Carrito = require("./mongodb/carrito");
+const Producto = require("./producto");
+const Carrito = require("./carrito");
 
 const productos = {
   async find(filter = {}) {
