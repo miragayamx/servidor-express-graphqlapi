@@ -1,35 +1,56 @@
-const path = require("path");
-const express = require("express");
-const productoRouter = require("./routes/productoRouter");
-const carritoRouter = require("./routes/carritoRouter");
-const loginRouter = require("./routes/loginRouter");
-const { createFolder } = require("./utils/fileManager");
-require('dotenv').config({ path: './.env' });
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const passport = require('passport');
+const logger = require('./winstonConfig');
+const productoRouter = require('./routes/productoRouter');
+const carritoRouter = require('./routes/carritoRouter');
+const loginRouter = require('./routes/loginRouter');
+const { createUploadsFolder } = require('./utils/fileManager');
+require('dotenv').config();
 require('./db-connect-data/mongoDB');
+require('./passport/passport');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+app.use(
+	session({
+		store: MongoStore.create({
+			mongoUrl: process.env.MONGO_URL,
+			mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true }
+		}),
+		secret: 'secreto',
+		resave: true,
+		saveUninitialized: true
+	})
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, '/public')));
 
-app.use("/", loginRouter);
-app.use("/productos", productoRouter);
-app.use("/carrito", carritoRouter);
+app.use('/', loginRouter);
+app.use('/productos', productoRouter);
+app.use('/carrito', carritoRouter);
 
-app.all("*", (req, res) => {
-  res.status(404).json({
-    error: -2,
-    descripcion: `ruta ${req.url} método ${req.method} no implementada`,
-  });
+app.all('*', (req, res) => {
+	res.status(404).json({
+		error: -2,
+		descripcion: `ruta ${req.url} método ${req.method} no implementada`
+	});
 });
 
 const server = app.listen(PORT, async () => {
-  console.log(
-    `El servidor esta corriendo en el puerto: ${server.address().port}`
-  );
-  await createFolder("./data");
+	logger.info(`El servidor esta corriendo en el puerto: ${server.address().port}`);
+	await createUploadsFolder();
 });
 
-server.on("error", (err) => console.log(`Error de servidor: ${err}`));
+server.on('error', (err) => {
+	logger.info(`Error de servidor: ${err}`);
+	logger.error(`Error de servidor: ${err}`);
+});

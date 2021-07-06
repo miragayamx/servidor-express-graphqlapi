@@ -1,5 +1,12 @@
 const fs = require('fs');
 
+exports.createUploadsFolder = () => {
+	fs.promises.mkdir('./public/uploads').then(() => console.log('Directorio uploads creado!')).catch((err) => {
+		if (err.code === 'EEXIST') return console.log('Directorio uploads creado!');
+		console.log(err);
+	});
+};
+
 exports.createFolder = async (path) => {
 	fs.promises.mkdir(path).then(() => 'Directorio creado con exito!').catch((err) => {
 		if (err.code === 'EEXIST') return;

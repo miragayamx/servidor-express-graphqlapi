@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
 	nombre: {
@@ -21,22 +21,19 @@ const userSchema = new mongoose.Schema({
 	},
   telefono: {
     type: String,
-    required: [true, 'Por favot ingrese su número de celular'],
-    validate: [ validator.isMobilePhone, 'El número ingresado no es valido']
+    required: [true, 'Por favot ingrese su número de celular']
   },
 	direccion: {
 		type: String
 	},
 	avatar: {
 		type: String,
-    required: true,
-    validate : [ validator.isURL, 'El dato ingresado no es correcto']
+    required: true
 	},
 	password: {
 		type: String,
 		required: [ true, 'Por favor ingrese su password' ],
-		minlength: 8,
-		select: false
+		minlength: 8
 	},
 	passwordConfirm: {
 		type: String,

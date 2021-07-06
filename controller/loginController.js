@@ -1,4 +1,12 @@
-const login = async (req, res) => {
+const login = (req, res) => {
+	try {
+		res.status(200).json({ user: req.user });
+	} catch (err) {
+		res.status(404).json({ error: err.message });
+	}
+};
+
+const postLogin = (req, res) => {
 	try {
 		res.status(200).json({ user: req.user });
 	} catch (err) {
@@ -16,19 +24,20 @@ const logout = (req, res) => {
 };
 
 const failLogin = (req, res) => {
-	res.render('fail', { message: 'USER ERROR LOGIN', url: '/login' });
+	res.json({ message: 'USER ERROR LOGIN', url: '/login' });
 };
 
 const signUp = (req, res) => {
-	res.render('signup');
+	res.json({ message: 'signup' });
 };
 
 const failSingUp = (req, res) => {
-	res.render('fail', { message: 'USER ERROR SIGNUP', url: '/signup' });
+	res.json({ message: 'USER ERROR SIGNUP', url: '/signup' });
 };
 
 module.exports = {
 	login,
+	postLogin,
 	logout,
 	failLogin,
 	signUp,

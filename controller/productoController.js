@@ -1,6 +1,4 @@
-const dao = require('../models/dao');
-const productos = dao.createDataAccess('productos');
-
+const { productos } = require('../models/dao');
 
 const getList = async (req, res) => {
 	let response;
