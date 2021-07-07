@@ -3,10 +3,12 @@ const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
+const handlebars = require('express-handlebars');
 const logger = require('./winstonConfig');
 const productoRouter = require('./routes/productoRouter');
 const carritoRouter = require('./routes/carritoRouter');
 const loginRouter = require('./routes/loginRouter');
+const viewRouter = require('./routes/viewRouter');
 const { createUploadsFolder } = require('./utils/fileManager');
 require('dotenv').config();
 require('./db-connect-data/mongoDB');
@@ -30,10 +32,23 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.engine(
+	'hbs',
+	handlebars({
+		extname: 'hbs',
+		defaultLayout: 'index',
+		layoutsDir: path.join(__dirname, '/views/layouts'),
+		partialsDir: path.join(__dirname, '/views/partials')
+	})
+);
+app.set('view engine', 'hbs');
+app.set('views', './views');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')));
 
+app.use('/', viewRouter);
 app.use('/', loginRouter);
 app.use('/productos', productoRouter);
 app.use('/carrito', carritoRouter);

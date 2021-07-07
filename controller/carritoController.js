@@ -30,14 +30,20 @@ const addItem = async (req, res) => {
 
 const buy = async (req, res) => {
 	try {
+		const pedido = await carrito.find();
+		const html = pedido.map((el) => {
+			return `
+				<p>Producto:${el.producto.nombre} / codigo: ${el.producto.codigo} / precio: ${el.producto.precio}</p>
+			`;
+		});
 		sendEmail({
 			form: 'Servidor Node',
 			to: process.env.ADMIN_EMAIL,
-			subject: `Nuevo pedido de ${req.user.name} email: ${req.user.email}`,
-			html: `<p></p>`
+			subject: `Nuevo pedido de ${req.user.nombre} email: ${req.user.email}`,
+			html: `<p>${html.join('')}</p>`
 		});
 		sendWhatsapp({
-			message: `Nuevo pedido de ${req.user.name} email: ${req.user.email}`,
+			message: `Nuevo pedido de ${req.user.nombre} email: ${req.user.email}`,
 			phone: process.env.ADMIN_WHATSAPP
 		});
 		sendSMS({

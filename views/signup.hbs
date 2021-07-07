@@ -1,0 +1,41 @@
+<div class="container">
+    {{> nav-bar }}
+    <h1 class="display-4">Registro de usuario</h1>
+    <form action="http://localhost:8080/signup" method="POST" enctype="multipart/form-data"
+        id="product-form">
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su nombre</label>
+            <input class="form-control" id="nombre" type="text" name="nombre" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su email</label>
+            <input class="form-control" id="email" type="text" name="email" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su contraseña</label>
+            <input class="form-control" id="password" type="text" name="password" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Repita su contraseña</label>
+            <input class="form-control" id="passwordConfirm" type="text" name="passwordConfirm" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su edad</label>
+            <input class="form-control" id="edad" type="number" name="edad" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su telefono</label>
+            <input class="form-control" id="telefono" type="text" name="telefono" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su direccion</label>
+            <input class="form-control" id="direccion" type="text" name="direccion" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="thumbnail">Ingrese su avatar</label>
+            <input class="form-control" id="avatar" type="file" name="avatar" required="true" />
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Enviar</button>
+    </form>
+    <button type="button" class="btn btn-primary mb-3" onclick="location.href='/viewlogin'">Login</button>
+</div>

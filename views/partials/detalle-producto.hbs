@@ -1,0 +1,14 @@
+{{#if producto}}
+<div class="card" style="width: 18rem;">
+  <img src={{producto.imagen}} class="card-img-top" alt={{producto.title}}>
+  <div class="card-body">
+    <h5 class="card-title">{{producto.title}}</h5>
+    <p class="card-text">{{producto.descripcion}}</p>
+    <a href="/" class="btn btn-primary">volver</a>
+  </div>
+</div>
+{{else}}
+<div class="alert alert-info" role="alert">
+    No se encontro el producto
+</div>
+{{/if}}

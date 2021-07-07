@@ -3,7 +3,7 @@ const Carrito = require('./carrito');
 
 const productos = {
 	async find(filter = {}) {
-		return await Producto.find(filter);
+		return await Producto.find(filter).lean();
 	},
 	async findById(id) {
 		return await Producto.findById(id);
@@ -22,7 +22,7 @@ const productos = {
 
 const carrito = {
 	async find(filter = {}) {
-		return await Carrito.find(filter).populate('producto');
+		return await Carrito.find(filter).populate('producto').lean();
 	},
 	async findById(id) {
 		return await Carrito.findById(id).populate('producto');
