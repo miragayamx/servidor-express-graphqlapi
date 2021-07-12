@@ -6,7 +6,7 @@ const productos = {
 		return await Producto.find(filter).lean();
 	},
 	async findById(id) {
-		return await Producto.findById(id);
+		return await Producto.findById(id).lean();
 	},
 	async insert(item) {
 		const producto = new Producto(item);
@@ -25,7 +25,7 @@ const carrito = {
 		return await Carrito.find(filter).populate('producto').lean();
 	},
 	async findById(id) {
-		return await Carrito.findById(id).populate('producto');
+		return await Carrito.findById(id).populate('producto').lean();
 	},
 	async insert(item) {
 		const carrito = new Carrito(item);

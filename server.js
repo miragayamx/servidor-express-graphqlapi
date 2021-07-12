@@ -49,9 +49,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', viewRouter);
-app.use('/', loginRouter);
-app.use('/productos', productoRouter);
-app.use('/carrito', carritoRouter);
+app.use('/api/', loginRouter);
+app.use('/api/productos', productoRouter);
+app.use('/api/carrito', carritoRouter);
 
 app.all('*', (req, res) => {
 	res.status(404).json({

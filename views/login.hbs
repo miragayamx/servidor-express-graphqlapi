@@ -7,8 +7,8 @@
     </div>
     {{else}}
     <h1 class="display-4">Login de usuario</h1>
-    <form action="http://localhost:8080/login" method="POST" enctype="application/x-www-form-urlencoded"
-        id="product-form">
+    <form action="/api/login" method="POST" enctype="application/x-www-form-urlencoded"
+        id="login-form">
         <div class="form-group mb-3">
             <label for="user">Ingrese su email</label>
             <input class="form-control" id="email" type="text" name="email" required="true" />
@@ -22,3 +22,26 @@
     <button type="button" class="btn btn-primary mb-3" onclick="location.href='/signup'">Registrar</button>
     {{/if}}
 </div>
+<script>
+    document.getElementById('login-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const { email, password } = event.target;
+        const data = {
+            email: email.value,
+            password: password.value
+        }
+        fetch("/api/login", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(() => {
+                location.href = '/home';
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    })
+</script>

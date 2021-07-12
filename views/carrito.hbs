@@ -1,8 +1,15 @@
 <script>
     async function buyFunction(){
-        await fetch(`/carrito/comprar`, {
+        await fetch(`/api/carrito/comprar`, {
             method: 'POST'
         });
+        location.href = '/home';
+    }
+    async function removeFunction(id){
+        await fetch(`/api/carrito/borrar/${id}`, {
+            method: 'DELETE'
+        });
+        location.href = '/carrito';
     }
 </script>
 <div class="container">
@@ -20,11 +27,11 @@
         <tbody>
             {{#each lista}}
             <tr>
-                <td>{{this.producto.title}}</td>
-                <td>${{this.producto.price}}</td>
-                <td><img height="80" src={{this.producto.thumbnail}} alt="#"></td>
+                <td>{{this.producto.nombre}}</td>
+                <td>${{this.producto.precio}}</td>
+                <td><img height="80" src={{this.producto.foto}} alt="#"></td>
                 <td>
-                    <button type="button" class="btn btn-primary">Remover</button>
+                    <button type="button" class="btn btn-primary" onclick="removeFunction('{{this._id}}');">Remover</button>
                 </td>
             </tr>
             {{/each}}

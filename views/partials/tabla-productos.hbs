@@ -1,6 +1,6 @@
 <script>
     async function addCarrrito(id) {
-        await fetch(`/carrito/agregar/${id}`, {
+        await fetch(`/api/carrito/agregar/${id}`, {
             method: 'POST'
         });
     }
@@ -18,11 +18,12 @@
     <tbody>
         {{#each lista}}
         <tr>
-            <td>{{this.title}}</td>
-            <td>${{this.price}}</td>
-            <td><img height="80" src={{this.thumbnail}} alt="#"></td>
+            <td>{{this.nombre}}</td>
+            <td>${{this.precio}}</td>
+            <td><img height="80" src={{this.foto}} alt="#"></td>
             <td>
-                <button type="button" class="btn btn-primary">ver más</button>
+                <button type="button" class="btn btn-primary" onclick="location.href = '/productos/{{this._id}}'">ver
+                    más</button>
                 <button type="button" class="btn btn-primary" onclick="addCarrrito('{{this._id}}');">Añadir al
                     carrito</button>
             </td>

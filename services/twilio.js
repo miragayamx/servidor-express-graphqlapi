@@ -1,5 +1,5 @@
 const accountSid = 'AC061442e23b3e330a2d9e935999b94ff9';
-const authToken = '';
+const authToken = '8ecee29846348617ebc3b584c46555cd';
 const logger = require('../winstonConfig');
 
 const client = require('twilio')(accountSid, authToken);
@@ -22,8 +22,8 @@ const sendWhatsapp = ({ message = 'Hola soy un SMS', phone }) => {
 	client.messages
 		.create({
 			body: message,
-			from: 'Whatsapp:+14155238886',
-			to: `Whatsapp:${phone}`
+			from: 'whatsapp:+14155238886',
+			to: `whatsapp:${phone}`
 		})
 		.then((message) => logger.info(message.sid))
 		.catch((err) => {

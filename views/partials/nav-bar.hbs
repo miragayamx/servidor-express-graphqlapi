@@ -9,22 +9,22 @@
         <li class="nav-item">
           <a class="nav-link" href="/home">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/viewcarrito">Carrito</a>
-        </li>
         {{#if user}}
         <li class="nav-item">
-            <a class="nav-link" href="/">Registrar producto</a>
+          <a class="nav-link" href="/carrito">Carrito</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/viewlogout">Log Out</a>
+            <a class="nav-link" href="/registrar">Registrar producto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Log Out</a>
         </li>
         {{else}}
         <li class="nav-item">
-          <a class="nav-link" href="/viewlogin">Login</a>
+          <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/viewsignup">Signup</a>
+          <a class="nav-link" href="/signup">Signup</a>
         </li>
         {{/if}}
       </ul>
