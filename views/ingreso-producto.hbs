@@ -35,14 +35,13 @@
 <script>
     document.getElementById('product-form').addEventListener('submit', (event) => {
         event.preventDefault();
-        const { nombre, descripcion, codigo, precio, edad, stock, foto } = event.target;
+        const { nombre, descripcion, codigo, precio, stock, foto } = event.target;
         const data = {
             nombre: nombre.value,
             descripcion: descripcion.value,
             codigo: codigo.value,
             precio: precio.value,
-            edad: edad.value;
-            stock: stock.value;
+            stock: stock.value,
             foto: foto.value
         }
         fetch("/api/productos/agregar", {

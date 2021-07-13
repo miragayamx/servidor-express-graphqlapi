@@ -1,5 +1,5 @@
 const accountSid = 'AC061442e23b3e330a2d9e935999b94ff9';
-const authToken = '';
+const authToken = '8ecee29846348617ebc3b584c46555cd';
 const logger = require('../winstonConfig');
 
 const client = require('twilio')(accountSid, authToken);
