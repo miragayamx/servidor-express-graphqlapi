@@ -10,17 +10,16 @@ const carritoRouter = require('./routes/carritoRouter');
 const loginRouter = require('./routes/loginRouter');
 const viewRouter = require('./routes/viewRouter');
 const { createUploadsFolder } = require('./utils/fileManager');
-require('dotenv').config();
-require('./db-connect-data/mongoDB');
+const env = require('./config');
 require('./passport/passport');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = env.PORT || 8080;
 
 app.use(
 	session({
 		store: MongoStore.create({
-			mongoUrl: process.env.MONGO_URL,
+			mongoUrl: env.MONGO_URL,
 			mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true }
 		}),
 		secret: 'secreto',
