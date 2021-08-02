@@ -8,6 +8,7 @@ const logger = require("./winstonConfig");
 const { graphqlHTTP } = require("express-graphql");
 import { buildContext } from "graphql-passport";
 const executableSchema = require("./graphql/executableSchema");
+const { graphqlUploadExpress } = require('graphql-upload');
 // const productoRouter = require("./routes/productoRouter");
 // const carritoRouter = require("./routes/carritoRouter");
 // const loginRouter = require("./routes/loginRouter");
@@ -52,6 +53,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(
   "/graphql",
+  graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP({
     schema: executableSchema,
     context: ({ req, res }) => buildContext({ req, res, User }),

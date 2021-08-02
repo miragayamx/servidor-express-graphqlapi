@@ -1,4 +1,22 @@
 const fs = require('fs');
+const path = require('path');
+
+exports.storeFS = ({ stream, filename }) => {
+    const uploadDir = path.join(__dirname, '../public/uploads');
+    const path = `${uploadDir}/${filename}`;
+    return new Promise((resolve, reject) =>
+        stream
+            .on('error', error => {
+                if (stream.truncated)
+                    // delete the truncated file
+                    fs.unlinkSync(path);
+                reject(error);
+            })
+            .pipe(fs.createWriteStream(path))
+            .on('error', error => reject(error))
+            .on('finish', () => resolve({ path }))
+    );
+}
 
 exports.createUploadsFolder = () => {
 	fs.promises.mkdir('./public/uploads').then(() => console.log('Directorio uploads creado!')).catch((err) => {
