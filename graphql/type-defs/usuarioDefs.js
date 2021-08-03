@@ -1,17 +1,31 @@
 const typeDef = `
-    type Producto {
-        id: String!,
-        title: String!,
-        price: float!,
-        thumbnail: String!
+    type Usuario {
+        _id: ID!,
+        nombre: String!,
+        email: String!,
+        edad: Int!,
+        telefono: String!,
+        direccion: String!,
+        avatar: String!,
+        password: String!,
+        passwordConfirm: String!
     }
-    input AddProductoInput {
-        title: String!,
-        price: float!,
-        thumbnail: String!
+    input usuarioInput {
+        nombre: String!,
+        email: String!,
+        edad: Int!,
+        telefono: String!,
+        direccion: String!,
+        avatar: String!,
+        password: String!,
+        passwordConfirm: String!
+    }
+    type Query {
+        getUsuario() : Usuario!,
     }
     type Mutation {
-        addProducto(data: AddProductoInput) : Producto!
+        singup(data: usuarioInput): Usuario,
+        login( email: String!, password: String!): Usuario
     }
 `;
 

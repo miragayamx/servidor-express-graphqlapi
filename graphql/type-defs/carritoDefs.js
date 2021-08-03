@@ -1,17 +1,23 @@
 const typeDef = `
-    type Producto {
-        id: String!,
-        title: String!,
-        price: float!,
-        thumbnail: String!
+    type Carrito {
+        _id: ID!,
+        usuario: String!,
+        producto: String!,
+        timestamp: Int!
     }
-    input AddProductoInput {
-        title: String!,
-        price: float!,
-        thumbnail: String!
+    input carritoInput {
+        usuario: String!,
+        producto: String!,
+        timestamp: Int!
+    }
+    type Query {
+        getCarrito() : [Producto!]!,
+        getItem(data: ID!) : Producto!
     }
     type Mutation {
-        addProducto(data: AddProductoInput) : Producto!
+        addProducto(data: carritoInput): Carrito,
+        removeProducto(data: ID!): Carrito,
+        buy(data: usuario!): [Carrito!]
     }
 `;
 

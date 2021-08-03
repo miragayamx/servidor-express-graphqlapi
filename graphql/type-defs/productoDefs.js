@@ -1,17 +1,31 @@
 const typeDef = `
     type Producto {
-        id: String!,
-        title: String!,
-        price: float!,
-        thumbnail: String!
+        _id: ID!,
+        nombre: String!,
+        descripcion: String!,
+        codigo: String!,
+        foto: String!,
+        precio: Float!,
+        stock: Int!,
+        timestamp: Int!
     }
-    input AddProductoInput {
-        title: String!,
-        price: float!,
-        thumbnail: String!
+    input productoInput {
+        nombre: String!,
+        descripcion: String!,
+        codigo: String!,
+        foto: String!,
+        precio: Float!,
+        stock: Int!,
+        timestamp: Int!
+    }
+    type Query {
+        getProductos() : [Producto!]!,
+        getProducto(data: ID!) : Producto!
     }
     type Mutation {
-        addProducto(data: AddProductoInput) : Producto!
+        addProducto(data: productoInput): Producto!,
+        updateProducto(data: productoInput): Producto,
+        removeProducto(data: ID!): Producto
     }
 `;
 
