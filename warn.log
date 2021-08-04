@@ -17,3 +17,11 @@
 {"message":"producto validation failed: nombre: Path `nombre` is required., descripcion: Path `descripcion` is required., codigo: Path `codigo` is required., foto: Path `foto` is required., precio: Path `precio` is required., stock: Path `stock` is required.","level":"error"}
 {"message":"producto validation failed: nombre: Path `nombre` is required., descripcion: Path `descripcion` is required., codigo: Path `codigo` is required., foto: Path `foto` is required., precio: Path `precio` is required., stock: Path `stock` is required.","level":"error"}
 {"message":"producto validation failed: nombre: Path `nombre` is required., descripcion: Path `descripcion` is required., codigo: Path `codigo` is required., foto: Path `foto` is required., precio: Path `precio` is required., stock: Path `stock` is required.","level":"error"}
+{"message":"connect ECONNREFUSED 127.0.0.1:27017","reason":{"type":"Single","setName":null,"maxSetVersion":null,"maxElectionId":null,"servers":{},"stale":false,"compatible":true,"compatibilityError":null,"logicalSessionTimeoutMinutes":null,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"commonWireVersion":null},"level":"error"}
+{"message":"Cannot destructure property 'req' of 'undefined' as it is undefined.","level":"error"}
+{"message":"Cannot read property 'user' of undefined","level":"error"}
+{"message":"Cannot read property 'user' of undefined","level":"error"}
+{"message":"context is not a function","level":"error"}
+{"message":"context is not a function","level":"error"}
+{"message":"context is not a function","level":"error"}
+{"message":"context is not a function","level":"error"}

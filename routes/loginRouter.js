@@ -7,6 +7,7 @@ const router = express.Router();
 
 const passportMiddleware = (req, res, next) => {
 	req.body.username = req.body.email;
+	console.log("passportMiddleware")
 	next();
 };
 

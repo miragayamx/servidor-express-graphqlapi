@@ -6,12 +6,11 @@ const passport = require("passport");
 const handlebars = require("express-handlebars");
 const logger = require("./winstonConfig");
 const { graphqlHTTP } = require("express-graphql");
-const { buildContext } = require("graphql-passport");
 const executableSchema = require("./graphql/executableSchema");
 const { graphqlUploadExpress } = require('graphql-upload');
 // const productoRouter = require("./routes/productoRouter");
 // const carritoRouter = require("./routes/carritoRouter");
-// const loginRouter = require("./routes/loginRouter");
+const loginRouter = require("./routes/loginRouter");
 const viewRouter = require("./routes/viewRouter");
 const { createUploadsFolder } = require("./utils/fileManager");
 const env = require("./config");
@@ -56,13 +55,12 @@ app.use(
   graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP({
     schema: executableSchema,
-    context: ({ req, res }) => buildContext({ req, res, User }),
     graphiql: true,
   })
 );
 
 app.use("/", viewRouter);
-// app.use("/api/", loginRouter);
+app.use("/api/", loginRouter);
 // app.use("/api/productos", productoRouter);
 // app.use("/api/carrito", carritoRouter);
 
