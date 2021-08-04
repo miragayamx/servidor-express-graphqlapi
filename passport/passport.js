@@ -1,9 +1,9 @@
 const passport = require("passport");
-import { GraphQLLocalStrategy } from "graphql-passport";
+const { GraphQLLocalStrategy } = require("graphql-passport");
 const Usuario = require("../models/usuario");
 
 passport.use(
-  new GraphQLLocalStrategy(async (email, password, done) => {
+  new GraphQLLocalStrategy({ passReqToCallback: true }, async (email, password, done) => {
     try {
       const user = await Usuario.findOne({ email: email });
       if (!user) return done(null, false);

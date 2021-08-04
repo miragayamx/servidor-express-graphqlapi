@@ -21,6 +21,7 @@ const productosDAO = {
 		try {
 			const producto = new Producto(productoDTO(item));
 			await producto.save();
+			return producto;
 		} catch (err) {
 			throw err;
 		}

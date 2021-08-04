@@ -1,3 +1,19 @@
 
 {"status":401,"code":20003,"moreInfo":"https://www.twilio.com/docs/errors/20003","level":"error"}
 {"status":401,"code":20003,"moreInfo":"https://www.twilio.com/docs/errors/20003","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"Cannot set property 'timestamp' of undefined","level":"error"}
+{"message":"producto validation failed: nombre: Path `nombre` is required., descripcion: Path `descripcion` is required., codigo: Path `codigo` is required., foto: Path `foto` is required., precio: Path `precio` is required., stock: Path `stock` is required.","level":"error"}
+{"message":"producto validation failed: nombre: Path `nombre` is required., descripcion: Path `descripcion` is required., codigo: Path `codigo` is required., foto: Path `foto` is required., precio: Path `precio` is required., stock: Path `stock` is required.","level":"error"}
+{"message":"producto validation failed: nombre: Path `nombre` is required., descripcion: Path `descripcion` is required., codigo: Path `codigo` is required., foto: Path `foto` is required., precio: Path `precio` is required., stock: Path `stock` is required.","level":"error"}
+{"message":"producto validation failed: nombre: Path `nombre` is required., descripcion: Path `descripcion` is required., codigo: Path `codigo` is required., foto: Path `foto` is required., precio: Path `precio` is required., stock: Path `stock` is required.","level":"error"}

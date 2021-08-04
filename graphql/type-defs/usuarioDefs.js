@@ -21,7 +21,7 @@ const typeDef = `
         passwordConfirm: String!
     }
     type Query {
-        getUsuario() : Usuario!,
+        getUsuario : Usuario!,
     }
     type Mutation {
         singup(data: usuarioInput): Usuario,

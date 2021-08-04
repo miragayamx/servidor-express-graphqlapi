@@ -6,7 +6,7 @@ const passport = require("passport");
 const handlebars = require("express-handlebars");
 const logger = require("./winstonConfig");
 const { graphqlHTTP } = require("express-graphql");
-import { buildContext } from "graphql-passport";
+const { buildContext } = require("graphql-passport");
 const executableSchema = require("./graphql/executableSchema");
 const { graphqlUploadExpress } = require('graphql-upload');
 // const productoRouter = require("./routes/productoRouter");
@@ -23,7 +23,7 @@ const PORT = env.PORT || 8080;
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl: env.MONGO_URL,
+      mongoUrl: env.MONGODB_URL,
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
     secret: "secreto",

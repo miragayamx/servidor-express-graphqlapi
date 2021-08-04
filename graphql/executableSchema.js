@@ -9,7 +9,7 @@ const usuarioResolver = require("./resolvers/usuarioResolver");
 
 const typeDefs = mergeTypeDefs([productoDefs, carritoDefs, usuarioDefs]);
 
-const resolver = mergeResolvers([
+const resolvers = mergeResolvers([
   productoResolver,
   carritoResolver,
   usuarioResolver,
@@ -17,5 +17,5 @@ const resolver = mergeResolvers([
 
 module.exports = makeExecutableSchema({
   typeDefs,
-  resolver,
+  resolvers,
 });

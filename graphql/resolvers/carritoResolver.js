@@ -4,7 +4,7 @@ const logger = require("../../winstonConfig");
 
 const productoResolver = {
   Query: {
-    getCarrito: async (args) => {
+    getCarrito: async (parent, args, context, info) => {
       try {
         const filter = args || {};
         return await carritoDAO.find(filter);
@@ -13,7 +13,7 @@ const productoResolver = {
         logger.error(err.message);
       }
     },
-    getCarritoByID: async (args) => {
+    getItem: async (parent, args, context, info) => {
       try {
         return await carritoDAO.findById(args.id);
       } catch (err) {
@@ -23,7 +23,7 @@ const productoResolver = {
     },
   },
   Mutation: {
-    addProducto: async (args, context) => {
+    addProducto: async (parent, args, context, info) => {
       try {
         const producto = await productosDAO.findById(args.id_producto);
         const item = {
@@ -37,7 +37,7 @@ const productoResolver = {
         logger.error(err.message);
       }
     },
-    buy: async (args, context) => {
+    buy: async (parent, args, context, info) => {
       try {
         await carritoDAO.deleteAll(context.getUser()._id);
       } catch (err) {
@@ -45,7 +45,7 @@ const productoResolver = {
         logger.error(err.message);
       }
     },
-    removeProducto: async (args) => {
+    removeItem: async (parent, args, context, info) => {
       try {
         await carritoDAO.delete(args.id);
       } catch (err) {

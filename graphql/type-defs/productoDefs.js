@@ -16,16 +16,15 @@ const typeDef = `
         foto: String!,
         precio: Float!,
         stock: Int!,
-        timestamp: Int!
     }
     type Query {
-        getProductos() : [Producto!]!,
+        getProductos : [Producto!],
         getProducto(data: ID!) : Producto!
     }
     type Mutation {
-        addProducto(data: productoInput): Producto!,
-        updateProducto(data: productoInput): Producto,
-        removeProducto(data: ID!): Producto
+        createProducto(data: productoInput): Producto!,
+        updateProducto(id: String!, data: productoInput): Producto,
+        removeProducto(id: ID!): Producto
     }
 `;
 
